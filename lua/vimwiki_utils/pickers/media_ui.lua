@@ -23,8 +23,6 @@ function M.link_source()
     local processed_results = processed_results_table[1]
     -- table for actual note paths
     local file_map = processed_results_table[2]
-    local note_name = ""
-    local wiki_link = ""
     local parent_note = vim.fn.expand("%:p")
 
     pickers.new(opts, {
@@ -45,18 +43,14 @@ function M.link_source()
 
                 actions.close(prompt_bufnr)
 
-                local is_first = true
+                local formatted_links = {}
                 for _, entry in ipairs(selections) do
                     local note_name = entry.value
                     local wiki_link = links.format_rel_md_link(file_map[note_name], parent_note)
                     wiki_link = "!" .. string.gsub(wiki_link, "%(", "(./") -- formatting for vimwiki
-                    if is_first then
-                        links.put_link(wiki_link, false)
-                        is_first=false
-                    else
-                        links.put_link(wiki_link, true)
-                    end
+                    table.insert(formatted_links,wiki_link)
                 end
+                links.put_link(formatted_links)
             end)
 
             -- open pdf 

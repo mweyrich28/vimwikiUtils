@@ -2,14 +2,9 @@ local M = {}
 
 local paths = require("vimwiki_utils.utils.paths")
 
----@param formatted_link string
----@param new_line? boolean
-function M.put_link(formatted_link, new_line)
-    if new_line then
-        vim.api.nvim_put({ formatted_link }, "l", true, true)
-    else
-        vim.api.nvim_put({ formatted_link }, "", true, true)
-    end
+---@param formatted_link table
+function M.put_link(formatted_link)
+    vim.api.nvim_put( formatted_link , "", true, true)
 end
 
 ---@param filename string

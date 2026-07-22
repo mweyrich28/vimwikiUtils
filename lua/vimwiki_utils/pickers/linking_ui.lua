@@ -38,7 +38,7 @@ function M.link_tag()
                     actions.close(prompt_bufnr)
                     local tag_name = selection.value
                     local tag_link = links.format_rel_md_link(file_table[tag_name], parent_note)
-                    links.put_link(tag_link)
+                    links.put_link({tag_link})
                 else
                     -- or creat new tag
                     local new_tag_name = action_state.get_current_line()
@@ -48,7 +48,7 @@ function M.link_tag()
 
                     local tag_path = vim.fs.joinpath(config.options.globals.tag_dir, new_tag_name)
                     local tag_link = links.format_rel_md_link(tag_path, parent_note)
-                    links.put_link(tag_link)
+                    links.put_link({tag_link})
                 end
             end)
 
@@ -74,7 +74,7 @@ function M.link_tag()
                 notes.create_new_tag(new_tag_name)
                 local tag_path = vim.fs.joinpath(config.options.globals.tag_dir, new_tag_name)
                 local tag_link = links.format_rel_md_link(tag_path, parent_note)
-                links.put_link(tag_link)
+                links.put_link({tag_link})
             end)
 
             return true
@@ -138,7 +138,7 @@ function M.link_note()
                 local parent_note = vim.fn.expand("%:p")
                 local wiki_link = links.format_rel_md_link(file_path, parent_note)
 
-                links.put_link(wiki_link)
+                links.put_link({wiki_link})
 
                 if not selection then
                     notes.create_new_note(
@@ -156,7 +156,7 @@ function M.link_note()
                 local file_path = vim.fs.joinpath(globals.atomic_notes_dir, note_name)
                 local parent_note = vim.fn.expand("%:p")
                 local wiki_link = links.format_rel_md_link(file_path, parent_note)
-                links.put_link(wiki_link)
+                links.put_link({wiki_link})
 
                 notes.create_new_note(
                     note_name,

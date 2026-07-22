@@ -55,7 +55,7 @@ function M.take_screenshot()
                 "4000",
             })
             local link_to_sc = "!" .. links.format_rel_md_link(rel_path, parent_note)
-            links.put_link(link_to_sc)
+            links.put_link({link_to_sc})
         end
     end
 end
