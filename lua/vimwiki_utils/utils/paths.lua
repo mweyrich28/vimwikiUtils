@@ -17,12 +17,13 @@ function M.format_results(prefix, results)
     local processed_results = {}
     local file_map = {}
     local wiki_suffix = M.get_path_suffix(wiki)
+    local escaped = wiki_suffix:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
     for _, path in ipairs(results) do
-        local markdown_file = string.match(path, ".*/" .. prefix .. "/(.*)")
-        if markdown_file then
-            table.insert(processed_results, markdown_file)
+        local file = string.match(path, ".*/" .. prefix .. "/(.*)")
+        if file then
+            table.insert(processed_results, file)
             -- map the displayed name to path relative to wiki
-            file_map[markdown_file] = string.match(path, wiki_suffix .. "/(.*)")
+            file_map[file] = string.match(path, escaped.. "/(.*)")
         end
     end
 
